@@ -1,0 +1,3 @@
+# 이 파일을 .envrc 로 복사해서 세팅하면 UI 상에서 mnemonic 을 직접 입력할 필요 없어짐
+# direnv 필요 (brew install direnv) https://direnv.net/
+export REACT_APP_TEST_MNEMONIC="stick banner knee luggage network art..."
