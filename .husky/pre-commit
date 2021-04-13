@@ -3,6 +3,6 @@
 
 # auto source import every markdown documents
 # @see https://www.npmjs.com/package/@handbook/markdown-source-import
-yarn run markdown-source-import README.md --git-add
+yarn run markdown-source-import README.md app/src/**/*.md --git-add
 
 yarn run lint-staged
