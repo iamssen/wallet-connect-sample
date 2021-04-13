@@ -1,15 +1,23 @@
+import {
+  useWalletConnect,
+  WalletConnectProvider,
+} from '@terra-money/terra-walletconnect-react';
+import { SessionStatus } from '@terra-money/terra-walletconnect/types';
 import { Connected } from 'app/components/Connected';
 import { InitSession } from 'app/components/InitSession';
-import { AppProvider, useApp } from 'app/context/app';
 import React from 'react';
 import { render } from 'react-dom';
 
 function Main() {
-  const { connector } = useApp();
+  const { session } = useWalletConnect();
 
   // 연결된 WalletConnect가 없는 경우 초기 연결 페이지 보여줌
-  if (!connector) {
+  if (session.status === SessionStatus.DISCONNECTED) {
     return <InitSession />;
+  }
+
+  if (session.status === SessionStatus.REQUESTED) {
+    return <div>Waiting Session Connect...</div>;
   }
 
   // 연결이 된 경우, 간단한 Tx 를 처리할 수 있는 테스트 페이지 보여줌
@@ -17,9 +25,11 @@ function Main() {
 }
 
 render(
-  <AppProvider>
+  <WalletConnectProvider
+    options={{ connectorOpts: { bridge: 'http://192.168.1.99:5001/' } }}
+  >
     <Main />
-  </AppProvider>,
+  </WalletConnectProvider>,
   document.querySelector('#app'),
 );
 

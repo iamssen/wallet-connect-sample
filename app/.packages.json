@@ -1,0 +1,7 @@
+{
+  "$schema": "https://rocket-hangar.github.io/rocket-punch/schemas/packages.json",
+  "@terra-money/*": {
+    "version": "0.1.0",
+    "tag": "latest"
+  }
+}

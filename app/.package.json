@@ -1,0 +1,13 @@
+{
+  "author": "Ian <ian@terra.money>",
+  "license": "MIT",
+  "repository": "github:id/repo",
+  "bugs": "https://github.com/id/repo/issues",
+  "homepage": "https://github.com/id/repo/tree/master/source/src/{name}",
+  "engines": {
+    "node": ">=12"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

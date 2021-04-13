@@ -1,12 +1,12 @@
-import { useApp } from 'app/context/app';
+import { useWalletConnect } from '@terra-money/terra-walletconnect-react';
 import React from 'react';
 
 export function InitSession() {
-  const { init } = useApp();
+  const { connect } = useWalletConnect();
 
   return (
     <section>
-      <button onClick={init}>Connect (Open QR)</button>
+      <button onClick={() => connect()}>Connect (Open QR)</button>
     </section>
   );
 }

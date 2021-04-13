@@ -4,6 +4,7 @@ import { webpackPolyfills } from './webpackPolyfills';
 (async () => {
   await start({
     app: 'wallet',
+    hostname: '0.0.0.0',
     webpackConfig: webpackPolyfills,
   });
 })();
