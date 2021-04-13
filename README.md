@@ -39,3 +39,13 @@ yarn run start
 Local 에 Bridge Server 를 세팅한 이후 (`make dev`), Bridge 를 `http://localhost:5001` 로 사용하니 좀 더 쾌적하게 동작하고 있음.
 
 별도의 Bridge Server 를 사용하는 것이 좋을 것 같음.
+
+# Packages
+
+<!-- index app/src/**/*.md -->
+
+- [app/src/@terra-money/terra-walletconnect-qrcode-modal/README.md](app/src/@terra-money/terra-walletconnect-qrcode-modal/README.md)
+- [app/src/@terra-money/terra-walletconnect-react/README.md](app/src/@terra-money/terra-walletconnect-react/README.md)
+- [app/src/@terra-money/terra-walletconnect/README.md](app/src/@terra-money/terra-walletconnect/README.md)
+
+<!-- /index -->
