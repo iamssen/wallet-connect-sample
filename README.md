@@ -31,3 +31,11 @@ yarn run start
     - Tx 요청이 잘 들어가지 않는다면 양쪽 웹브라우저를 모두 새로고침 한 다음에 시도하면 됨
 - `WalletConnect.sendTransaction()` 은 이더리움 전용으로 보임 (이더리움 Tx Validation을 하고 있어서 Custom Tx 는 실패함)
     - `WalletConnect.sendCustomRequest()` 로 처리 (dApp 쪽의 문제이고, Wallet 에서는 동일한 Event 로 처리되는 것으로 보임)
+  
+## Wallet Connect Bridge Server
+
+접속 불안정 (양자간에 Event 교환 발생이 제대로 되지 않는 문제)는 기본 제공되는 `https://bridge.walletconnect.org` 의 지연 문제로 보임
+
+Local 에 Bridge Server 를 세팅한 이후 (`make dev`), Bridge 를 `http://localhost:5001` 로 사용하니 좀 더 쾌적하게 동작하고 있음.
+
+별도의 Bridge Server 를 사용하는 것이 좋을 것 같음.
