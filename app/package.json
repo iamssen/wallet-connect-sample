@@ -8,7 +8,8 @@
     "test": "jest --colors",
     "coverage": "jest --coverage",
     "precommit": "lint-staged",
-    "wallet:start": "TS_NODE_PROJECT=tsconfig.script.json INSPECT_CHROME=9222 node -r ts-node/register -r tsconfig-paths/register scripts/start.wallet.ts"
+    "wallet:start": "TS_NODE_PROJECT=tsconfig.script.json INSPECT_CHROME=9222 node -r ts-node/register -r tsconfig-paths/register scripts/start.wallet.ts",
+    "wallet:build": "TS_NODE_PROJECT=tsconfig.script.json INSPECT_CHROME=9222 node -r ts-node/register -r tsconfig-paths/register scripts/build.wallet.ts"
   },
   "multiplerun": {
     "dev": [
