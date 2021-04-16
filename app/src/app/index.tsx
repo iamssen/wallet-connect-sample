@@ -26,7 +26,7 @@ function Main() {
 
 render(
   <WalletConnectProvider
-    options={{ connectorOpts: { bridge: 'http://192.168.1.99:5001/' } }}
+    options={{ connectorOpts: { bridge: 'http://34.64.174.176:5001/' } }}
   >
     <Main />
   </WalletConnectProvider>,

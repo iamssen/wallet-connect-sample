@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useWallet } from 'wallet/context/wallet';
+import QrReader from 'react-qr-reader';
 
 export function InitSession() {
   const { init } = useWallet();
 
   const [uri, setUri] = useState<string>('');
+
+  const [qrscan, setQrscan] = useState<boolean>(false);
 
   return (
     <section>
@@ -17,7 +20,23 @@ export function InitSession() {
         />
       </div>
 
+      {qrscan && (
+        <QrReader
+          delay={300}
+          onError={console.error}
+          onScan={(data) => {
+            if (data) {
+              setUri(data);
+              setQrscan(false);
+            }
+          }}
+          style={{ width: '100%' }}
+        />
+      )}
+
       <footer style={{ marginTop: 30 }}>
+        <button onClick={() => setQrscan((prev) => !prev)}>QR Scan</button>
+
         <button disabled={uri.length === 0} onClick={() => init(uri)}>
           Connect
         </button>
