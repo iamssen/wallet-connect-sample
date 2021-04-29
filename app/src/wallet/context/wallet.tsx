@@ -97,7 +97,7 @@ export function WalletProvider({ children }: WalletProviderProps) {
     connector.rejectSession();
     setConnected(false);
   }, [connector]);
-  
+
   // ---------------------------------------------
   // App -> Wallet 의 Request 처리
   // ---------------------------------------------
@@ -152,6 +152,7 @@ export function WalletProvider({ children }: WalletProviderProps) {
       connector?.rejectRequest({
         id: req.id,
         error: {
+          code: 20000,
           message: 'txerror...',
         },
       });
@@ -173,7 +174,7 @@ export function WalletProvider({ children }: WalletProviderProps) {
     connector.on('session_request', (error, payload) => {
       console.log('EVENT', 'session_request', error, payload);
       if (error) throw error;
-      
+
       // peerMeta (접속 App 정보) 를 세팅해서 UI 에서 처리화면이 뜨도록 한다
       setPeerMeta(payload.params[0]);
     });
@@ -188,12 +189,21 @@ export function WalletProvider({ children }: WalletProviderProps) {
     // UI 쪽에서 Approve / Reject 를 처리한 다음
     // approveRequest() / rejectRequest() 로 결과를 받는다
     connector.on('call_request', async (error, payload) => {
-      console.log('EVENT', 'call_request', payload);
+      //console.log('EVENT', 'call_request', payload);
 
       if (error) throw error;
 
-      // request 를 세팅해서 UI 에서 처리화면이 뜨도록 한다
-      setRequest(payload);
+      if (payload.method === 'ping') {
+        connector.approveRequest({
+          id: payload.id,
+          result: {
+            success: true,
+          },
+        });
+      } else if (payload.method === 'terra') {
+        // request 를 세팅해서 UI 에서 처리화면이 뜨도록 한다
+        setRequest(payload);
+      }
     });
 
     // ? : 테스트 상에서 발생되지 않고 있음
@@ -214,6 +224,24 @@ export function WalletProvider({ children }: WalletProviderProps) {
       setPeerMeta(null);
       setConnected(false);
     });
+
+    setInterval(() => {
+      if (!connector) {
+        throw new Error('connector is undefined!!');
+      }
+
+      Promise.race([
+        connector.sendCustomRequest({
+          id: Date.now(),
+          method: 'ping',
+        }),
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ success: false }), 1000 * 10),
+        ),
+      ]).then((result) => {
+        console.log('connect.ts..()', result);
+      });
+    }, 1000 * 30);
   }, [connected, connector, peerMeta]);
 
   // ---------------------------------------------

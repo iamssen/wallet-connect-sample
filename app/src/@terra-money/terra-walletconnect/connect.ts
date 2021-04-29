@@ -108,6 +108,41 @@ export function connectWallet(
         status: SessionStatus.DISCONNECTED,
       });
     });
+
+    connector.on('call_request', async (error, payload) => {
+      if (error) throw error;
+
+      if (!connector) {
+        throw new Error('connector is undefined!!');
+      }
+
+      if (payload.method === 'ping') {
+        connector.approveRequest({
+          id: payload.id,
+          result: {
+            success: true,
+          },
+        });
+      }
+    });
+
+    setInterval(() => {
+      if (!connector) {
+        throw new Error('connector is undefined!!');
+      }
+
+      Promise.race([
+        connector.sendCustomRequest({
+          id: Date.now(),
+          method: 'ping',
+        }),
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ success: false }), 1000 * 10),
+        ),
+      ]).then((result) => {
+        console.log('connect.ts..()', result);
+      });
+    }, 1000 * 30);
   }
 
   // ---------------------------------------------

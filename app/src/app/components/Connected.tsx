@@ -49,6 +49,7 @@ export function Connected() {
 
       console.log('Connected.tsx..()', result);
     } catch (e) {
+      debugger;
       console.error(e);
     } finally {
       setInProgress(false);
